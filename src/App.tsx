@@ -1,4 +1,4 @@
-import { GitHubBanner, Refine, WelcomePage } from "@refinedev/core";
+import { Refine } from "@refinedev/core";
 import { DevtoolsPanel, DevtoolsProvider } from "@refinedev/devtools";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 
@@ -6,17 +6,21 @@ import routerProvider, {
   DocumentTitleHandler,
   UnsavedChangesNotifier,
 } from "@refinedev/react-router";
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter, Outlet, Route, Routes } from "react-router";
 import "./App.css";
 import { Toaster } from "./components/refine-ui/notification/toaster";
 import { useNotificationProvider } from "./components/refine-ui/notification/use-notification-provider";
 import { ThemeProvider } from "./components/refine-ui/theme/theme-provider";
 import { dataProvider } from "./providers/data";
+import Dashboard from "./pages/dashboard";
+import SportsList from "./pages/sports/list";
+import { Home } from "lucide-react";
+import { Layout } from "./components/refine-ui/layout/layout";
+import SportsCreate from "./pages/sports/create";
 
 function App() {
   return (
     <BrowserRouter>
-      <GitHubBanner />
       <RefineKbarProvider>
         <ThemeProvider>
           <DevtoolsProvider>
@@ -29,9 +33,32 @@ function App() {
                 warnWhenUnsavedChanges: true,
                 projectId: "Z8lnJj-wA9psE-Yb8ZAG",
               }}
+              resources={[
+                {
+                  name: 'dashboard',
+                  list: '/',
+                  meta: { label: 'Home', icon: <Home /> },
+                },
+                {
+                  name: 'sports',
+                  list: '/sports',
+                  create: '/sports/create',
+                  meta: { label: 'Sports', icon: <Home /> },
+                }
+              ]}
             >
               <Routes>
-                <Route index element={<WelcomePage />} />
+                <Route element={
+                  <Layout>
+                    <Outlet />
+                  </Layout>
+                } >
+                  <Route path="/" element={<Dashboard />} />
+                  <Route path="sports">
+                    <Route index element={<SportsList />} />
+                    <Route path="create" element={<SportsCreate />} />
+                  </Route>
+                </Route>
               </Routes>
               <Toaster />
               <RefineKbar />
