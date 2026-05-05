@@ -14,7 +14,7 @@ import { ThemeProvider } from "./components/refine-ui/theme/theme-provider";
 import { dataProvider } from "./providers/data";
 import Dashboard from "./pages/dashboard";
 import SportsList from "./pages/sports/list";
-import { Home } from "lucide-react";
+import { Home, Volleyball } from "lucide-react";
 import { Layout } from "./components/refine-ui/layout/layout";
 import SportsCreate from "./pages/sports/create";
 
@@ -43,7 +43,7 @@ function App() {
                   name: 'sports',
                   list: '/sports',
                   create: '/sports/create',
-                  meta: { label: 'Sports', icon: <Home /> },
+                  meta: { label: 'Sports', icon: <Volleyball /> },
                 }
               ]}
             >
