@@ -42,7 +42,7 @@ const SportsList = () => {
       },
       {
         id: 'category',
-        accessorKey: 'category',
+        accessorKey: 'sports_category.name',
         size: 150,
         header: () => <p className="column-title">Category</p>,
         cell: ({ getValue }) => <Badge variant='secondary'>{getValue<string>()}</Badge>
