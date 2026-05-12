@@ -5,65 +5,65 @@ import { ListView } from "@/components/refine-ui/views/list-view"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { SPORTS_CATEGORIES_OPTIONS } from "@/constants"
+import { FACULTIES_OPTIONS } from "@/constants"
 import { Sport } from "@/types"
 import { useTable } from "@refinedev/react-table"
 import { ColumnDef } from "@tanstack/react-table"
 import { Search } from "lucide-react"
 import { useMemo, useState } from "react"
 
-const SportsList = () => {
+const StudentsList = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedFaculty, setSelectedFaculty] = useState("all");
 
-  const categoryFilter = selectedCategory === "all" ? [] : [
-    { field: 'categoryId', operator: 'eq' as const, value: selectedCategory }
+  const facultyFilter = selectedFaculty === "all" ? [] : [
+    { field: 'faculty', operator: 'eq' as const, value: selectedFaculty }
   ];
   const searchFilter = searchQuery ? [
     { field: 'name', operator: 'contains' as const, value: searchQuery }
   ] : [];
 
-  const sportsTable = useTable<Sport>({
+  const studentsTable = useTable<Sport>({
     columns: useMemo<ColumnDef<Sport>[]>(() => [
       {
-        id: 'code',
-        accessorKey: 'code',
+        id: 'registration_number',
+        accessorKey: 'registrationNumber',
         size: 100,
         header: () => <p className="column-title ml-2">Code</p>,
         cell: ({ getValue }) => <Badge>{getValue<string>()}</Badge>
       },
       {
         id: 'name',
-        accessorKey: 'name',
+        accessorKey: 'users.name',
         size: 200,
         header: () => <p className="column-title">Name</p>,
         cell: ({ getValue }) => <span className="text-foreground">{getValue<string>()}</span>,
         filterFn: 'includesString'
       },
       {
-        id: 'category',
-        accessorKey: 'sports_category.name',
+        id: 'faculty',
+        accessorKey: 'faculty',
         size: 150,
-        header: () => <p className="column-title">Category</p>,
+        header: () => <p className="column-title">Faculty</p>,
         cell: ({ getValue }) => <Badge variant='secondary'>{getValue<string>()}</Badge>
       },
       {
-        id: 'description',
-        accessorKey: 'description',
+        id: 'batch',
+        accessorKey: 'batch',
         size: 300,
-        header: () => <p className="column-title">Description</p>,
+        header: () => <p className="column-title">Batch</p>,
         cell: ({ getValue }) => <span className="truncate line-clamp-2">{getValue<string>()}</span>,
         filterFn: 'includesString'
       },
     ], []),
     refineCoreProps: {
-      resource: "sports",
+      resource: "students",
       pagination: {
         pageSize: 10,
         mode: "server",
       },
       filters: {
-        permanent: [...categoryFilter, ...searchFilter],
+        permanent: [...facultyFilter, ...searchFilter],
       },
       sorters: {
         initial: [
@@ -77,10 +77,10 @@ const SportsList = () => {
     <ListView>
       <Breadcrumb />
 
-      <h1 className="page-title">Sports</h1>
+      <h1 className="page-title">Students</h1>
 
       <div className="intro-row">
-        <p>List of sports</p>
+        <p>List of students</p>
 
         <div className="actions-row">
           <div className="search-field">
@@ -96,14 +96,14 @@ const SportsList = () => {
           </div>
 
           <div className="flex gap-2 w-full sm:w-auto">
-            <Select value={selectedCategory} onValueChange={(value) => setSelectedCategory(value)}>
+            <Select value={selectedFaculty} onValueChange={(value) => setSelectedFaculty(value)}>
               <SelectTrigger>
-                <SelectValue placeholder="Filter by category" />
+                <SelectValue placeholder="Filter by faculty" />
               </SelectTrigger>
 
               <SelectContent>
-                <SelectItem value="all">All Categories</SelectItem>
-                {SPORTS_CATEGORIES_OPTIONS.map((option) => {
+                <SelectItem value="all">All Faculties</SelectItem>
+                {FACULTIES_OPTIONS.map((option) => {
                   return (
                     <SelectItem key={option.value} value={option.value}>
                       {option.label}
@@ -118,9 +118,9 @@ const SportsList = () => {
         </div>
       </div>
 
-      <DataTable table={sportsTable} />
+      <DataTable table={studentsTable} />
     </ListView>
   )
 }
 
-export default SportsList
+export default StudentsList
