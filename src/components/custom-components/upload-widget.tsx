@@ -3,17 +3,27 @@ import { UploadWidgetValue } from "@/types";
 import { UploadCloud } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-const UploadWidget = ({ value = null, onChange, disabled = false }) => {
+type UploadWidgetProps = {
+    value?: UploadWidgetValue | null;
+    onChange?: (file: UploadWidgetValue | null) => void;
+    disabled?: boolean;
+};
+
+const UploadWidget = ({
+    value = null,
+    onChange,
+    disabled = false,
+}: UploadWidgetProps) => {
     const widgetRef = useRef<CloudinaryWidget | null>(null);
     const onChangeRef = useRef(onChange);
 
     const [preview, setPreview] = useState<UploadWidgetValue | null>(value);
-    const [deleteToken, setDeleteToken] = useState<string | null>(null);
-    const [isRemoving, setIsRemoving] = useState(false);
+    // const [deleteToken, setDeleteToken] = useState<string | null>(null);
+    // const [isRemoving, setIsRemoving] = useState(false);
 
     useEffect(() => {
         setPreview(value);
-        if(!value) setDeleteToken(null);
+        // if(!value) setDeleteToken(null);
     }, [value]);
 
     useEffect(() => {
@@ -42,7 +52,7 @@ const UploadWidget = ({ value = null, onChange, disabled = false }) => {
 
                     setPreview(payload);
 
-                    setDeleteToken(result.info.delete_token ?? null);
+                    // setDeleteToken(result.info.delete_token ?? null);
                     onChangeRef.current?.(payload);
                 }
             });
@@ -65,7 +75,7 @@ const UploadWidget = ({ value = null, onChange, disabled = false }) => {
         if (!disabled) widgetRef.current?.open();
     };
 
-    const removeFromCloudinary = async () => {};
+    // const removeFromCloudinary = async () => {};
 
     return (
         <div className="space-y-2">

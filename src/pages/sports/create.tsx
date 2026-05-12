@@ -8,13 +8,18 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "@refinedev/react-hook-form"
 import { sportSchema } from "@/lib/schema"
 import * as z from "zod";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Label } from "@/components/ui/label"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { SPORTS_CATEGORIES_OPTIONS } from "@/constants"
 import { Textarea } from "@/components/ui/textarea"
 import UploadWidget from "@/components/custom-components/upload-widget"
+import { ArrowLeft } from "lucide-react"
+
+type UploadFile = {
+  url: string;
+  publicId: string;
+};
 
 const SportsCreate = () => {
   const back = useBack();
@@ -27,7 +32,7 @@ const SportsCreate = () => {
     },
   })
 
-  const { handleSubmit, formState: { isSubmitting, errors }, control } = form;
+  const { handleSubmit, formState: { errors }, control, watch } = form;
 
   const onSubmit = (values: z.infer<typeof sportSchema>) => {
     try {
@@ -37,15 +42,26 @@ const SportsCreate = () => {
     }
   }
 
-  const bannerPublicId = form.watch('bannerCldPubId');
+  const bannerPublicId = watch('bannerCldPubId');
 
-  const setBannerImage = (file, field) => {
+  const setBannerImage = (
+    file: UploadFile | null,
+    field: {
+      onChange: (value: string) => void;
+    }
+  ) => {
     if(file) {
       field.onChange(file.url);
-      form.setValue('bannerCldPubId', file.publicId, { shouldValidate: true, shouldDirty: true });
+      form.setValue('bannerCldPubId', file.publicId, {
+        shouldValidate: true,
+        shouldDirty: true
+      });
     } else {
       field.onChange('');
-      form.setValue('bannerCldPubId', '', { shouldValidate: true, shouldDirty: true });
+      form.setValue('bannerCldPubId', '', {
+        shouldValidate: true,
+        shouldDirty: true
+      });
     }
   }
 
@@ -57,7 +73,10 @@ const SportsCreate = () => {
 
       <div className="intro-row">
         <p>Provide the required information below to add a new sport.</p>
-        <Button onClick={back}>Go Back</Button>
+        <Button onClick={back}>
+          <ArrowLeft size={15} />
+          Go Back
+        </Button>
       </div>
       
       <Separator />
