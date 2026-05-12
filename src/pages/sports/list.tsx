@@ -17,7 +17,7 @@ const SportsList = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
 
   const categoryFilter = selectedCategory === "all" ? [] : [
-    { field: 'categoryId', operator: 'eq' as const, value: selectedCategory }
+    { field: 'category', operator: 'eq' as const, value: selectedCategory }
   ];
   const searchFilter = searchQuery ? [
     { field: 'name', operator: 'contains' as const, value: searchQuery }
