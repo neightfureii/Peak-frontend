@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Bell, Menu, User, Phone, Mail, MapPin, Facebook, Twitter, Instagram, X, Pencil, Trash2, LogOut, ChevronDown } from "lucide-react";
+import { X, Pencil, Trash2 } from "lucide-react";
 
 type Visibility = "students" | "captains" | "amalgamated club" | "";
 
@@ -58,8 +58,8 @@ function Badge({ visibility }: { visibility: string }) {
 
 const Dashboard = () => {
   const [notices, setNotices] = useState<Notice[]>(MOCK_NOTICES);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [profileOpen, setProfileOpen] = useState(false);
+  // const [menuOpen, setMenuOpen] = useState(false);
+  // const [profileOpen, setProfileOpen] = useState(false);
 
   // Add form
   const [addForm, setAddForm] = useState({ title: "", content: "", visibility: "" as Visibility | "" });

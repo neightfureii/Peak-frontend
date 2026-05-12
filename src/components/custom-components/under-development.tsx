@@ -35,7 +35,7 @@ const UnderDevelopment = ({
                 <button
                     type="button"
                     onClick={back}
-                    className="flex items-center gap-2 text-sm px-4 py-2 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
+                    className="flex items-center gap-2 text-sm px-4 py-2 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
                 >
                     <ArrowLeft size={15} />
                     Go back
