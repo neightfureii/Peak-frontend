@@ -29,6 +29,9 @@ const options: CreateDataProviderOptions = {
     mapResponse: async (response) => {
       const payload: ListResponse = await response.json();
 
+      console.log('📥 Response Data:', payload);
+      console.log('📊 Total Count:', payload.pagination?.total);
+
       return payload.data ?? [];
     },
 

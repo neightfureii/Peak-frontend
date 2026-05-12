@@ -13,10 +13,18 @@ import { useNotificationProvider } from "./components/refine-ui/notification/use
 import { ThemeProvider } from "./components/refine-ui/theme/theme-provider";
 import { dataProvider } from "./providers/data";
 import Dashboard from "./pages/dashboard";
-import SportsList from "./pages/sports/list";
-import { Home, Volleyball } from "lucide-react";
+import { Building2, CalendarCheck, ClipboardList, Dumbbell, Home, Users } from "lucide-react";
 import { Layout } from "./components/refine-ui/layout/layout";
+import SportsList from "./pages/sports/list";
 import SportsCreate from "./pages/sports/create";
+import StudentsList from "./pages/students/list";
+import StudentsCreate from "./pages/students/create";
+import ReservationsList from "./pages/reservations/list";
+import ReservationsCreate from "./pages/reservations/create";
+import FacilitiesList from "./pages/facilities/list";
+import FacilitiesCreate from "./pages/facilities/create";
+import InventoryList from "./pages/inventory/list";
+import InventoryCreate from "./pages/inventory/create";
 
 function App() {
   return (
@@ -43,7 +51,31 @@ function App() {
                   name: 'sports',
                   list: '/sports',
                   create: '/sports/create',
-                  meta: { label: 'Sports', icon: <Volleyball /> },
+                  meta: { label: 'Sports', icon: <Dumbbell /> },
+                },
+                {
+                  name: 'students',
+                  list: '/students',
+                  create: '/students/create',
+                  meta: { label: 'Students', icon: <Users /> },
+                },
+                {
+                  name: 'reservations',
+                  list: '/reservations',
+                  create: '/reservations/create',
+                  meta: { label: 'Reservations', icon: <CalendarCheck /> },
+                },
+                {
+                  name: 'facilities',
+                  list: '/facilities',
+                  create: '/facilities/create',
+                  meta: { label: 'Facilities', icon: <Building2 /> },
+                },
+                {
+                  name: 'inventory',
+                  list: '/inventory',
+                  create: '/inventory/create',
+                  meta: { label: 'Inventory', icon: <ClipboardList /> },
                 }
               ]}
             >
@@ -57,6 +89,22 @@ function App() {
                   <Route path="sports">
                     <Route index element={<SportsList />} />
                     <Route path="create" element={<SportsCreate />} />
+                  </Route>
+                  <Route path="students">
+                    <Route index element={<StudentsList />} />
+                    <Route path="create" element={<StudentsCreate />} />
+                  </Route>
+                  <Route path="reservations">
+                    <Route index element={<ReservationsList />} />
+                    <Route path="create" element={<ReservationsCreate />} />
+                  </Route>
+                  <Route path="facilities">
+                    <Route index element={<FacilitiesList />} />
+                    <Route path="create" element={<FacilitiesCreate />} />
+                  </Route>
+                  <Route path="inventory">
+                    <Route index element={<InventoryList />} />
+                    <Route path="create" element={<InventoryCreate />} />
                   </Route>
                 </Route>
               </Routes>
