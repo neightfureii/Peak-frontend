@@ -63,7 +63,7 @@ const Dashboard = () => {
 
   // Add form
   const [addForm, setAddForm] = useState({ title: "", content: "", visibility: "" as Visibility | "" });
-  const [addErrors, setAddErrors] = useState<{ title?: string; content?: string }>({});
+  const [addErrors, setAddErrors] = useState<{ title?: string; content?: string; visibility?: string }>({});
 
   // Edit modal
   const [editOpen, setEditOpen] = useState(false);
@@ -73,6 +73,7 @@ const Dashboard = () => {
     const errs: typeof addErrors = {};
     if (!addForm.title.trim()) errs.title = "Title is required.";
     if (!addForm.content.trim()) errs.content = "Content is required.";
+    if (!addForm.visibility) errs.visibility = "Visibility is required.";
     return errs;
   }
 
@@ -161,6 +162,7 @@ const Dashboard = () => {
                   <option value="captains">Only Sports Captains</option>
                   <option value="amalgamated club">Amalgamated Club</option>
                 </select>
+                {addErrors.visibility && <p className="text-red-500 text-xs mt-1">{addErrors.visibility}</p>}
                 <button
                   type="submit"
                   className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm rounded-lg py-2.5 transition-colors"
@@ -194,7 +196,7 @@ const Dashboard = () => {
                       <Badge visibility={n.visibility} />
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 flex-shrink-0">
+                  <div className="flex items-center gap-2 shrink-0">
                     <button
                       onClick={() => openEdit(n)}
                       className="p-2 rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-500 hover:text-emerald-600 transition-colors"

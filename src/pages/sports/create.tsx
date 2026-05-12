@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { useBack } from "@refinedev/core"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import { useForm } from "@refinedev/react-hook-form"
 import { sportSchema } from "@/lib/schema"
 import * as z from "zod";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
@@ -82,7 +82,7 @@ const SportsCreate = () => {
                     <FormItem>
                       <FormLabel>Banner Image <span className="text-orange-600">*</span></FormLabel>
                       <FormControl>
-                        <UploadWidget value={field.value ? { url: field.value, publicId: bannerPublicId ?? '' } : null} onChange={(file, field) => setBannerImage(file, field)} />
+                        <UploadWidget value={field.value ? { url: field.value, publicId: bannerPublicId ?? '' } : null} onChange={(file) => setBannerImage(file, field)} />
                       </FormControl>
                       <FormMessage />
                       {errors.bannerCldPubId && !errors.bannerUrl && (<p className="text-destructive text-sm">{errors.bannerCldPubId.message?.toString()}</p>)}

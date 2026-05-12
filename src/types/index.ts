@@ -7,6 +7,14 @@ export type Sport = {
     created_at: string;
 }
 
+export type Student = {
+    id: number;
+    name: string;
+    faculty: string;
+    batch: string;
+    created_at: string;
+}
+
 export type ListResponse<T = unknown> = {
     data?: T[];
     pagination?: {

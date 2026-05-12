@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { FACULTIES_OPTIONS } from "@/constants"
-import { Sport } from "@/types"
+import { Student } from "@/types"
 import { useTable } from "@refinedev/react-table"
 import { ColumnDef } from "@tanstack/react-table"
 import { Search } from "lucide-react"
@@ -23,8 +23,8 @@ const StudentsList = () => {
     { field: 'name', operator: 'contains' as const, value: searchQuery }
   ] : [];
 
-  const studentsTable = useTable<Sport>({
-    columns: useMemo<ColumnDef<Sport>[]>(() => [
+  const studentsTable = useTable<Student>({
+    columns: useMemo<ColumnDef<Student>[]>(() => [
       {
         id: 'registration_number',
         accessorKey: 'registrationNumber',

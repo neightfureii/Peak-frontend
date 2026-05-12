@@ -33,6 +33,7 @@ const UnderDevelopment = ({
 
             <div className="flex gap-3 flex-wrap justify-center">
                 <button
+                    type="button"
                     onClick={back}
                     className="flex items-center gap-2 text-sm px-4 py-2 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
                 >
