@@ -25,6 +25,7 @@ import FacilitiesList from "./pages/facilities/list";
 import FacilitiesCreate from "./pages/facilities/create";
 import InventoryList from "./pages/inventory/list";
 import InventoryCreate from "./pages/inventory/create";
+import { CustomLogo, CustomTitle } from "./components/refine-ui/layout/custom-title";
 
 function App() {
   return (
@@ -40,6 +41,10 @@ function App() {
                 syncWithLocation: true,
                 warnWhenUnsavedChanges: true,
                 projectId: "Z8lnJj-wA9psE-Yb8ZAG",
+                title: {
+                  text: <CustomTitle />,
+                  icon: <CustomLogo />,
+                },
               }}
               resources={[
                 {

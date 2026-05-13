@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { X, Pencil, Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 type Visibility = "students" | "captains" | "amalgamated club" | "";
 
@@ -163,12 +164,11 @@ const Dashboard = () => {
                   <option value="amalgamated club">Amalgamated Club</option>
                 </select>
                 {addErrors.visibility && <p className="text-red-500 text-xs mt-1">{addErrors.visibility}</p>}
-                <button
+                <Button
                   type="submit"
-                  className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm rounded-lg py-2.5 transition-colors"
                 >
                   Publish Notice
-                </button>
+                </Button>
               </form>
             </div>
           </div>

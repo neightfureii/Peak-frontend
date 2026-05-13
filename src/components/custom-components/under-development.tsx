@@ -1,5 +1,6 @@
 import { useBack } from "@refinedev/core";
 import { ArrowLeft, Code, Construction } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface UnderDevelopmentProps {
     title?: string;
@@ -32,14 +33,10 @@ const UnderDevelopment = ({
             <p className="text-sm text-gray-500 max-w-sm leading-relaxed mb-8">{description}</p>
 
             <div className="flex gap-3 flex-wrap justify-center">
-                <button
-                    type="button"
-                    onClick={back}
-                    className="flex items-center gap-2 text-sm px-4 py-2 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
-                >
+                <Button onClick={back}>
                     <ArrowLeft size={15} />
                     Go back
-                </button>
+                </Button>
             </div>
         </div>
     );
