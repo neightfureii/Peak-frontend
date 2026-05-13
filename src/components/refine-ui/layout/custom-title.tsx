@@ -15,7 +15,7 @@ export const CustomLogo = () => {
 export const CustomTitle = () => {
   return (
     <div className="flex items-center gap-2 overflow-hidden">
-      <span className="font-bold text-3xl oklch(0.3651 0.0325 287.0807) whitespace-nowrap transition-all duration-200">
+      <span className="font-bold text-3xl text-[oklch(0.3651_0.0325_287.0807)] whitespace-nowrap transition-all duration-200">
         PEAK
       </span>
     </div>
