@@ -7,6 +7,13 @@ export type Sport = {
     created_at: string;
 }
 
+export type SportsCategory = {
+    id: number;
+    name: string;
+    description: string;
+    created_at: string;
+}
+
 export type Student = {
     id: number;
     name: string;
