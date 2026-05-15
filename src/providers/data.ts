@@ -66,9 +66,18 @@ const options: CreateDataProviderOptions = {
     buildBodyParams: async ({ variables }) => variables,
 
     mapResponse: async (response) => {
+      if (!response.ok) throw await buildHttpError(response);
+
       const json: CreateResponse = await response.json();
 
-      return json.data ?? [];
+      if (!json.data) {
+        throw {
+          message: "Malformed create response.",
+          statusCode: response.status,
+        } as HttpError;
+      }
+
+      return json.data;
     }
   },
 }
