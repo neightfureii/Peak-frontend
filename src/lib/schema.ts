@@ -6,8 +6,7 @@ export const sportSchema = z.object({
     code: z.string().trim().min(1, "Code is required").max(10),
     name: z.string().trim().min(1, "Name is required").max(100),
     description: z.string().max(255).optional(),
-    categoryId: z.number().int().min(1, "Category is required"),
-    status: z.enum(['active', 'inactive']),
+    categoryId: z.string().min(1, "Category is required"),
 });
 
 export const sportsCategorySchema = z.object({

@@ -1,5 +1,5 @@
 import { BACKEND_BASE_URL } from "@/constants";
-import { ListResponse } from "@/types";
+import { CreateResponse, ListResponse } from "@/types";
 import { HttpError } from "@refinedev/core";
 import { CreateDataProviderOptions, createDataProvider } from "@refinedev/rest";
 
@@ -58,7 +58,28 @@ const options: CreateDataProviderOptions = {
       const payload: ListResponse = await response.json();
       return payload.pagination?.total ?? payload.data?.length ?? 0;
     }
-  }
+  },
+
+  create: {
+    getEndpoint: ({ resource }) => resource,
+
+    buildBodyParams: async ({ variables }) => variables,
+
+    mapResponse: async (response) => {
+      if (!response.ok) throw await buildHttpError(response);
+
+      const json: CreateResponse = await response.json();
+
+      if (!json.data) {
+        throw {
+          message: "Malformed create response.",
+          statusCode: response.status,
+        } as HttpError;
+      }
+
+      return json.data;
+    }
+  },
 }
 
 const { dataProvider } = createDataProvider(BACKEND_BASE_URL, options);

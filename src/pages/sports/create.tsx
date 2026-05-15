@@ -3,7 +3,7 @@ import { CreateView } from "@/components/refine-ui/views/create-view"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import { useBack } from "@refinedev/core"
+import { useBack, useList } from "@refinedev/core"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "@refinedev/react-hook-form"
 import { sportSchema } from "@/lib/schema"
@@ -11,10 +11,10 @@ import * as z from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { SPORTS_CATEGORIES_OPTIONS } from "@/constants"
 import { Textarea } from "@/components/ui/textarea"
 import UploadWidget from "@/components/custom-components/upload-widget"
 import { ArrowLeft } from "lucide-react"
+import { SportsCategory } from "@/types"
 
 type UploadFile = {
   url: string;
@@ -32,15 +32,29 @@ const SportsCreate = () => {
     },
   })
 
-  const { handleSubmit, formState: { errors }, control, watch } = form;
+  const {
+    refineCore: { onFinish },
+    handleSubmit,
+    formState: { errors },
+    control,
+    watch
+  } = form;
 
-  const onSubmit = (values: z.infer<typeof sportSchema>) => {
+  const onSubmit = async (values: z.infer<typeof sportSchema>) => {
     try {
-      console.log('Form Values:', values);
+      console.log('Submitted Form Values:', values);
+      await onFinish(values);
     } catch (error) {
       console.error('Error creating sport:', error);
     }
   }
+
+  const { query: categoriesQuery } = useList<SportsCategory>({
+    resource: 'sports_categories',
+  })
+
+  const categories = categoriesQuery?.data?.data || [];
+  const categoriesLoading = categoriesQuery.isLoading;
 
   const bannerPublicId = watch('bannerCldPubId');
 
@@ -126,20 +140,34 @@ const SportsCreate = () => {
                 <div className="grid sm:grid-cols-2 gap-4">
                   <FormField
                     control={control}
+                    name="code"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Code <span className="text-orange-600">*</span></FormLabel>
+                        <FormControl>
+                          <Input placeholder="Enter sport code" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )} 
+                  />
+
+                  <FormField
+                    control={control}
                     name="categoryId"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Category <span className="text-orange-600">*</span></FormLabel>
-                        <Select onValueChange={(value) => field.onChange(Number(value))} value={field?.value?.toString()}>
+                        <Select onValueChange={(value) => field.onChange(value)} value={field?.value?.toString()} disabled={categoriesLoading}>
                           <FormControl>
                             <SelectTrigger className="w-full">
                               <SelectValue placeholder="Select a category" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {SPORTS_CATEGORIES_OPTIONS.map((option) => (
+                            {categories.map((option) => (
                               <SelectItem key={option.id} value={option.id.toString()}>
-                                {option.label}
+                                {option.name}
                               </SelectItem>
                             ))}
                           </SelectContent>

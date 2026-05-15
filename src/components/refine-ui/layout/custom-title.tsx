@@ -1,10 +1,8 @@
-import peakLogo from "../../../../public/images/Peak_logo.png";
-
 export const CustomLogo = () => {
   return (
     <div className="flex items-center gap-2 overflow-hidden">
       <img 
-        src={peakLogo} 
+        src="/images/Peak_logo.png" 
         alt="peak-logo" 
         className="size-8 shrink-0" 
       />
