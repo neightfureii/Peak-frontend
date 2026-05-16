@@ -85,9 +85,17 @@ const options: CreateDataProviderOptions = {
     getEndpoint: ({ resource, id }) => `${resource}/${id}`,
 
     mapResponse: async (response) => {
+      if (!response.ok) throw await buildHttpError(response);
       const json: GetOneResponse = await response.json();
 
-      return json.data ?? [];
+      if (!json.data) {
+        throw {
+          message: "Malformed getOne response.",
+          statusCode: response.status,
+        } as HttpError;
+      }
+
+      return json.data;
     }
   }
 }

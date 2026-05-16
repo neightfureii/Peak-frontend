@@ -34,7 +34,7 @@ const SportsShow = () => {
         <ShowViewHeader resource="sports" title="Sport Details" />
 
         <div className="banner">
-            {bannerUrl ? (
+            {bannerUrl && bannerCldPubId ? (
                 <AdvancedImage alt="Sport Banner" cldImg={bannerPhoto(bannerCldPubId, name)} />
             ) : <div className="placeholder" />}
         </div>
