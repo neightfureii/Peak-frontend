@@ -26,6 +26,7 @@ import FacilitiesCreate from "./pages/facilities/create";
 import InventoryList from "./pages/inventory/list";
 import InventoryCreate from "./pages/inventory/create";
 import { CustomLogo, CustomTitle } from "./components/refine-ui/layout/custom-title";
+import SportsShow from "./pages/sports/show";
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
                   name: 'sports',
                   list: '/sports',
                   create: '/sports/create',
+                  show: '/sports/show/:id',
                   meta: { label: 'Sports', icon: <Dumbbell /> },
                 },
                 {
@@ -94,6 +96,7 @@ function App() {
                   <Route path="sports">
                     <Route index element={<SportsList />} />
                     <Route path="create" element={<SportsCreate />} />
+                    <Route path="show/:id" element={<SportsShow />} />
                   </Route>
                   <Route path="students">
                     <Route index element={<StudentsList />} />

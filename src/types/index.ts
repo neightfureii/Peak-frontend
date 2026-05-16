@@ -14,6 +14,17 @@ export type SportsCategory = {
     created_at: string;
 }
 
+export type SportDetails = {
+    id: number;
+    code: string;
+    name: string;
+    description: string;
+    bannerUrl: string;
+    bannerCldPubId: string;
+    category: SportsCategory;
+    created_at: string;
+}
+
 export type Student = {
     id: number;
     name: string;
