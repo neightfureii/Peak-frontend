@@ -79,14 +79,14 @@ export const ShowViewHeader = ({
         )}
       >
         <div className="flex items-center gap-1">
-          {isShowPage ? (
+          {isShowPage && resourceName ? (
             <Button
               variant="ghost"
               size="icon"
               onClick={() =>
                 go({
                   to: {
-                    resource: resourceName!,
+                    resource: resourceName,
                     action: "list",
                   },
                   type: "replace",

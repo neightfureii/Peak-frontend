@@ -16,7 +16,7 @@ const UsersShow = () => {
     if(isLoading || isError || !userDetails) {
         return (
             <ShowView className="page-view page-show">
-                <ShowViewHeader resource="users" title="User Details" />
+                <ShowViewHeader resource="users" title="User Details" isShowPage={true} />
 
                 <p className="state-message">
                     {isLoading ? 'Loading user details...'

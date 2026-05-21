@@ -41,10 +41,10 @@ const UsersCreate = () => {
 
   const onSubmit = async (values: z.infer<typeof userSchema>) => {
     try {
-      console.log('Submitted Form Values:', values);
+      console.log('Submitted Form Values');
       await onFinish(values);
     } catch (error) {
-      console.error('Error creating user:', error);
+      console.error('Error creating user', error);
     }
   }
 

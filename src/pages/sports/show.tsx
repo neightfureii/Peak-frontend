@@ -31,7 +31,7 @@ const SportsShow = () => {
     const { name, code, description, bannerUrl, bannerCldPubId, category } = sportDetails;
   return (
     <ShowView className="page-view page-show">
-        <ShowViewHeader resource="sports" title="Sport Details" />
+        <ShowViewHeader resource="sports" title="Sport Details" isShowPage={true} />
 
         <div className="banner">
             {bannerUrl && bannerCldPubId ? (
