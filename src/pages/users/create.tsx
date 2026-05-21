@@ -3,31 +3,30 @@ import { CreateView } from "@/components/refine-ui/views/create-view"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import { useBack, useList } from "@refinedev/core"
+import { useBack } from "@refinedev/core"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "@refinedev/react-hook-form"
-import { sportSchema } from "@/lib/schema"
+import { userSchema } from "@/lib/schema"
 import * as z from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
 import UploadWidget from "@/components/custom-components/upload-widget"
 import { ArrowLeft } from "lucide-react"
-import { SportsCategory } from "@/types"
+import { ROLES } from "@/constants"
 
 type UploadFile = {
   url: string;
   publicId: string;
 };
 
-const SportsCreate = () => {
+const UsersCreate = () => {
   const back = useBack();
 
   const form = useForm({
-    resolver: zodResolver(sportSchema),
+    resolver: zodResolver(userSchema),
     refineCoreProps: {
-      resource: 'sports',
+      resource: 'users',
       action: 'create',
     },
   })
@@ -40,25 +39,18 @@ const SportsCreate = () => {
     watch
   } = form;
 
-  const onSubmit = async (values: z.infer<typeof sportSchema>) => {
+  const onSubmit = async (values: z.infer<typeof userSchema>) => {
     try {
-      console.log('Submitted Form Values:', values);
+      console.log('Submitted Form Values');
       await onFinish(values);
     } catch (error) {
-      console.error('Error creating sport:', error);
+      console.error('Error creating user', error);
     }
   }
 
-  const { query: categoriesQuery } = useList<SportsCategory>({
-    resource: 'sports_categories',
-  })
+  const imagePublicId = watch('imageCldPubId');
 
-  const categories = categoriesQuery?.data?.data || [];
-  const categoriesLoading = categoriesQuery.isLoading;
-
-  const bannerPublicId = watch('bannerCldPubId');
-
-  const setBannerImage = (
+  const setUserImage = (
     file: UploadFile | null,
     field: {
       onChange: (value: string) => void;
@@ -66,13 +58,13 @@ const SportsCreate = () => {
   ) => {
     if(file) {
       field.onChange(file.url);
-      form.setValue('bannerCldPubId', file.publicId, {
+      form.setValue('imageCldPubId', file.publicId, {
         shouldValidate: true,
         shouldDirty: true
       });
     } else {
       field.onChange('');
-      form.setValue('bannerCldPubId', '', {
+      form.setValue('imageCldPubId', '', {
         shouldValidate: true,
         shouldDirty: true
       });
@@ -83,10 +75,10 @@ const SportsCreate = () => {
     <CreateView className="page-view">
       <Breadcrumb />
 
-      <h1 className="page-title">Create a Sport</h1>
+      <h1 className="page-title">Create a User</h1>
 
       <div className="intro-row">
-        <p>Provide the required information below to add a new sport.</p>
+        <p>Provide the required information below to add a new user.</p>
         <Button onClick={back}>
           <ArrowLeft size={15} />
           Go Back
@@ -110,15 +102,15 @@ const SportsCreate = () => {
               >
                 <FormField
                   control={control}
-                  name="bannerUrl"
+                  name="image"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Banner Image <span className="text-orange-600">*</span></FormLabel>
+                      <FormLabel>User Image <span className="text-orange-600">*</span></FormLabel>
                       <FormControl>
-                        <UploadWidget value={field.value ? { url: field.value, publicId: bannerPublicId ?? '' } : null} onChange={(file) => setBannerImage(file, field)} />
+                        <UploadWidget value={field.value ? { url: field.value, publicId: imagePublicId ?? '' } : null} onChange={(file) => setUserImage(file, field)} />
                       </FormControl>
                       <FormMessage />
-                      {errors.bannerCldPubId && !errors.bannerUrl && (<p className="text-destructive text-sm">{errors.bannerCldPubId.message?.toString()}</p>)}
+                      {errors.imageCldPubId && !errors.image && (<p className="text-destructive text-sm">{errors.imageCldPubId.message?.toString()}</p>)}
                     </FormItem>
                   )} 
                 />
@@ -128,9 +120,9 @@ const SportsCreate = () => {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Sport Name <span className="text-orange-600">*</span></FormLabel>
+                      <FormLabel>Name <span className="text-orange-600">*</span></FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter sport name" {...field} />
+                        <Input placeholder="Enter user name" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -140,12 +132,12 @@ const SportsCreate = () => {
                 <div className="grid sm:grid-cols-2 gap-4">
                   <FormField
                     control={control}
-                    name="code"
+                    name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Code <span className="text-orange-600">*</span></FormLabel>
+                        <FormLabel>Email <span className="text-orange-600">*</span></FormLabel>
                         <FormControl>
-                          <Input placeholder="Enter sport code" {...field} />
+                          <Input placeholder="Enter user email" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -154,20 +146,20 @@ const SportsCreate = () => {
 
                   <FormField
                     control={control}
-                    name="categoryId"
+                    name="role"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Category <span className="text-orange-600">*</span></FormLabel>
-                        <Select onValueChange={(value) => field.onChange(value)} value={field?.value?.toString()} disabled={categoriesLoading}>
+                        <FormLabel>Role <span className="text-orange-600">*</span></FormLabel>
+                        <Select onValueChange={(value) => field.onChange(value)} value={field?.value?.toString()}>
                           <FormControl>
                             <SelectTrigger className="w-full">
-                              <SelectValue placeholder="Select a category" />
+                              <SelectValue placeholder="Select a role" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {categories.map((option) => (
-                              <SelectItem key={option.id} value={option.id.toString()}>
-                                {option.name}
+                            {ROLES.map((option) => (
+                              <SelectItem value={option.value} key={option.id}>
+                                {option.label}
                               </SelectItem>
                             ))}
                           </SelectContent>
@@ -177,21 +169,7 @@ const SportsCreate = () => {
                     )} 
                   />
                 </div>
-
-                <FormField
-                  control={control}
-                  name="description"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Description</FormLabel>
-                      <FormControl>
-                        <Textarea placeholder="Enter a brief description about the sport" className="resize-none" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )} 
-                />
-                <Button type="submit">Create Sport</Button>
+                <Button type="submit">Create User</Button>
               </form>
             </Form>
           </CardContent>
@@ -201,4 +179,4 @@ const SportsCreate = () => {
   )
 }
 
-export default SportsCreate
+export default UsersCreate

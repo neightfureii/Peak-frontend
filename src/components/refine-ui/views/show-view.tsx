@@ -9,6 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import {
   useBack,
+  useGo,
   useResourceParams,
   useUserFriendlyName,
 } from "@refinedev/core";
@@ -30,6 +31,7 @@ type ShowViewHeaderProps = PropsWithChildren<{
   title?: string;
   wrapperClassName?: string;
   headerClassName?: string;
+  isShowPage?: boolean;
 }>;
 
 export const ShowViewHeader = ({
@@ -37,8 +39,10 @@ export const ShowViewHeader = ({
   title: titleFromProps,
   wrapperClassName,
   headerClassName,
+  isShowPage = false,
 }: ShowViewHeaderProps) => {
   const back = useBack();
+  const go = useGo();
 
   const getUserFriendlyName = useUserFriendlyName();
 
@@ -75,13 +79,32 @@ export const ShowViewHeader = ({
         )}
       >
         <div className="flex items-center gap-1">
-          <Button variant="ghost" size="icon" onClick={back}>
-            <ArrowLeftIcon className="h-4 w-4" />
-          </Button>
+          {isShowPage && resourceName ? (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() =>
+                go({
+                  to: {
+                    resource: resourceName,
+                    action: "list",
+                  },
+                  type: "replace",
+                })
+              }
+            >
+              <ArrowLeftIcon className="h-4 w-4" />
+            </Button>
+          ) : (
+            <Button variant="ghost" size="icon" onClick={back}>
+              <ArrowLeftIcon className="h-4 w-4" />
+            </Button>
+          )}
+          
           <h2 className="text-2xl font-bold">{title}</h2>
         </div>
 
-        <div className="flex items-center gap-2">
+        {/* <div className="flex items-center gap-2">
           <RefreshButton
             variant="outline"
             recordItemId={recordItemId}
@@ -92,7 +115,7 @@ export const ShowViewHeader = ({
             recordItemId={recordItemId}
             resource={resourceName}
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );

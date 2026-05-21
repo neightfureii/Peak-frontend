@@ -122,11 +122,11 @@
         @apply flex flex-col gap-5 lg:flex-row justify-between space-y-4;
     }
 
-    .class-view {
+    .page-view {
         @apply container mx-auto pb-8 px-2 sm:px-4;
     }
 
-    .class-form-card {
+    .page-form-card {
         @apply max-w-3xl gap-2 w-full mx-auto relative overflow-hidden border shadow-sm border-foreground/20;
     }
 
@@ -166,7 +166,7 @@
         }
     }
 
-    .class-show {
+    .page-show {
         .state-message {
             @apply mt-6 text-sm text-muted-foreground;
         }
@@ -185,6 +185,10 @@
             .placeholder {
                 @apply h-72 w-full bg-slate-200;
             }
+        }
+
+        .profile-picture {
+            @apply size-54 rounded-full object-cover border-4 border-card shadow-md self-center;
         }
 
         .details-card {
