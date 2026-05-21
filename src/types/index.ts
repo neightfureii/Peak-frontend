@@ -91,11 +91,13 @@ export interface UploadWidgetProps {
     disabled?: boolean;
 }
 
-export enum UserRole {
-    STUDENT = "student",
-    INCHARGE = "pedincharge",
-    ADMIN = "admin",
-}
+export const USER_ROLES = [
+  "admin",
+  "student",
+  "pedIncharge",
+] as const;
+
+export type UserRole = typeof USER_ROLES[number];
 
 export type User = {
     id: string;
@@ -106,7 +108,17 @@ export type User = {
     role: UserRole;
     image?: string;
     imageCldPubId?: string;
-    department?: string;
+};
+
+export type UserDetails = {
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+    email: string;
+    name: string;
+    role: UserRole;
+    image?: string;
+    imageCldPubId?: string;
 };
 
 export type SignUpPayload = {

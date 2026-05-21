@@ -1,3 +1,11 @@
+import { USER_ROLES } from "@/types";
+
+export const ROLES = [
+    { id: '1', value: USER_ROLES[0], label: 'Admin' },
+    { id: '2', value: USER_ROLES[1], label: 'Student' },
+    { id: '3', value: USER_ROLES[2], label: 'PED Incharge' },
+]
+
 export const SPORTS_CATEGORIES_OPTIONS = [
     { id: '3', value: 'field', label: 'Field Sport' },
     { id: '4', value: 'water', label: 'Water Sport' },

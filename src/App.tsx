@@ -13,7 +13,7 @@ import { useNotificationProvider } from "./components/refine-ui/notification/use
 import { ThemeProvider } from "./components/refine-ui/theme/theme-provider";
 import { dataProvider } from "./providers/data";
 import Dashboard from "./pages/dashboard";
-import { Building2, CalendarCheck, ClipboardList, Dumbbell, Home, Users } from "lucide-react";
+import { Building2, CalendarCheck, ClipboardList, Dumbbell, GraduationCap, Home, Users } from "lucide-react";
 import { Layout } from "./components/refine-ui/layout/layout";
 import SportsList from "./pages/sports/list";
 import SportsCreate from "./pages/sports/create";
@@ -27,6 +27,9 @@ import InventoryList from "./pages/inventory/list";
 import InventoryCreate from "./pages/inventory/create";
 import { CustomLogo, CustomTitle } from "./components/refine-ui/layout/custom-title";
 import SportsShow from "./pages/sports/show";
+import UsersList from "./pages/users/list";
+import UsersCreate from "./pages/users/create";
+import UsersShow from "./pages/users/show";
 
 function App() {
   return (
@@ -54,6 +57,13 @@ function App() {
                   meta: { label: 'Home', icon: <Home /> },
                 },
                 {
+                  name: 'users',
+                  list: '/users',
+                  create: '/users/create',
+                  show: '/users/show/:id',
+                  meta: { label: 'Users', icon: <Users /> },
+                },
+                {
                   name: 'sports',
                   list: '/sports',
                   create: '/sports/create',
@@ -64,7 +74,7 @@ function App() {
                   name: 'students',
                   list: '/students',
                   create: '/students/create',
-                  meta: { label: 'Students', icon: <Users /> },
+                  meta: { label: 'Students', icon: <GraduationCap /> },
                 },
                 {
                   name: 'reservations',
@@ -93,6 +103,11 @@ function App() {
                   </Layout>
                 } >
                   <Route path="/" element={<Dashboard />} />
+                  <Route path="users">
+                    <Route index element={<UsersList />} />
+                    <Route path="create" element={<UsersCreate />} />
+                    <Route path="show/:id" element={<UsersShow />} />
+                  </Route>
                   <Route path="sports">
                     <Route index element={<SportsList />} />
                     <Route path="create" element={<SportsCreate />} />

@@ -14,8 +14,8 @@ const SportsShow = () => {
 
     if(isLoading || isError || !sportDetails) {
         return (
-            <ShowView className="class-view class-show">
-                <ShowViewHeader resource="sports" title="Sport Details" />
+            <ShowView className="page-view page-show">
+                <ShowViewHeader resource="sports" title="Sport Details" isShowPage={true} />
 
                 <p className="state-message">
                     {isLoading ? 'Loading sport details...'
@@ -30,7 +30,7 @@ const SportsShow = () => {
 
     const { name, code, description, bannerUrl, bannerCldPubId, category } = sportDetails;
   return (
-    <ShowView className="class-view class-show">
+    <ShowView className="page-view page-show">
         <ShowViewHeader resource="sports" title="Sport Details" />
 
         <div className="banner">
