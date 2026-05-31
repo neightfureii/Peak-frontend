@@ -2,7 +2,7 @@
 
 import type { PropsWithChildren } from "react";
 
-import { RefreshButton } from "@/components/refine-ui/buttons/refresh";
+// import { RefreshButton } from "@/components/refine-ui/buttons/refresh";
 import { Breadcrumb } from "@/components/refine-ui/layout/breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -14,7 +14,7 @@ import {
   useUserFriendlyName,
 } from "@refinedev/core";
 import { ArrowLeftIcon } from "lucide-react";
-import { EditButton } from "../buttons/edit";
+// import { EditButton } from "../buttons/edit";
 
 type ShowViewProps = PropsWithChildren<{
   className?: string;
@@ -49,7 +49,7 @@ export const ShowViewHeader = ({
   const { resource, identifier } = useResourceParams({
     resource: resourceFromProps,
   });
-  const { id: recordItemId } = useResourceParams();
+  // const { id: recordItemId } = useResourceParams();
 
   const resourceName = resource?.name ?? identifier;
 
@@ -63,10 +63,10 @@ export const ShowViewHeader = ({
   return (
     <div className={cn("flex flex-col", "gap-4", wrapperClassName)}>
       <div className="flex items-center relative gap-2">
-        <div className="bg-background z-[2] pr-4">
+        <div className="bg-background z-2 pr-4">
           <Breadcrumb />
         </div>
-        <Separator className={cn("absolute", "left-0", "right-0", "z-[1]")} />
+        <Separator className={cn("absolute", "left-0", "right-0", "z-1")} />
       </div>
       <div
         className={cn(

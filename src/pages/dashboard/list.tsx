@@ -57,7 +57,7 @@ function Badge({ visibility }: { visibility: string }) {
   );
 }
 
-const Dashboard = () => {
+const DashboardList = () => {
   const [notices, setNotices] = useState<Notice[]>(MOCK_NOTICES);
   // const [menuOpen, setMenuOpen] = useState(false);
   // const [profileOpen, setProfileOpen] = useState(false);
@@ -284,4 +284,4 @@ const Dashboard = () => {
   );
 }
 
-export default Dashboard
+export default DashboardList

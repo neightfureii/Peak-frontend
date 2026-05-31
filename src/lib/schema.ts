@@ -22,3 +22,11 @@ export const userSchema = z.object({
     email: z.string().trim().min(1, "Email is required").email("Invalid email format").max(255),
     role: z.enum(USER_ROLES, { message: "Role must be one of 'admin', 'student', or 'ped_incharge'" }),
 });
+
+export const studentSchema = z.object({
+    registrationNumber: z.string().trim().min(1, "Registration number is required").max(10),
+    name: z.string().trim().min(1, "Name is required").max(100),
+    faculty: z.string().trim().min(1, "Faculty is required").max(255),
+    degree: z.string().trim().min(1, "Degree is required").max(255),
+    batch: z.string().trim().min(1, "Batch is required").max(255),
+});

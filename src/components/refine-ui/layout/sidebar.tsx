@@ -18,6 +18,7 @@ import {
   SidebarHeader as ShadcnSidebarHeader,
   SidebarRail as ShadcnSidebarRail,
   SidebarTrigger as ShadcnSidebarTrigger,
+  SidebarFooter as ShadcnSidebarFooter,
   useSidebar as useShadcnSidebar,
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
@@ -29,6 +30,8 @@ import {
 } from "@refinedev/core";
 import { ChevronRight, ListIcon } from "lucide-react";
 import React from "react";
+import { UserInfoDummy } from "@/components/refine-ui/layout/user-info";
+import { UserAvatarDummy } from "@/components/refine-ui/layout/user-avatar";
 
 export function Sidebar() {
   const { open } = useShadcnSidebar();
@@ -63,6 +66,17 @@ export function Sidebar() {
           />
         ))}
       </ShadcnSidebarContent>
+      <ShadcnSidebarFooter className={cn(
+        "border-t",
+        "border-border",
+        "p-3",
+        {
+          "px-3": open,
+          "px-1": !open,
+        }
+      )}>
+        <ProfileButton />
+      </ShadcnSidebarFooter>
     </ShadcnSidebar>
   );
 }
@@ -360,6 +374,32 @@ function SidebarButton({
         buttonContent
       )}
     </Button>
+  );
+}
+
+function ProfileButton() {
+  const { open } = useShadcnSidebar();
+  const Link = useLink();
+
+  return (
+    <div className={cn("flex", "items-center", "justify-between", "w-full")}>
+      
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <button className="cursor-pointer hover:border-b-indigo-400">
+            {open ? (<UserInfoDummy />) : (<UserAvatarDummy />)}
+          </button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent side="right" align="end">
+          <DropdownMenuItem asChild>
+            <Link to="/profile" className="flex items-center gap-2">
+              View Profile
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>Logout</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
 }
 
