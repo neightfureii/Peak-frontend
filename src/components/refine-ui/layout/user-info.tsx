@@ -1,4 +1,4 @@
-import { UserAvatar } from "@/components/refine-ui/layout/user-avatar";
+import { UserAvatar, UserAvatarDummy } from "@/components/refine-ui/layout/user-avatar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { useGetIdentity } from "@refinedev/core";
@@ -45,6 +45,28 @@ export function UserInfo() {
           {firstName} {lastName}
         </span>
         <span className={cn("text-xs", "text-muted-foreground")}>{email}</span>
+      </div>
+    </div>
+  );
+}
+
+export function UserInfoDummy() {
+  return (
+    <div className={cn("flex", "items-center", "gap-x-2")}>
+      <UserAvatarDummy />
+      <div
+        className={cn(
+          "flex",
+          "flex-col",
+          "justify-between",
+          "h-10",
+          "text-left"
+        )}
+      >
+        <span className={cn("text-sm", "font-medium", "text-muted-foreground")}>
+          John Doe
+        </span>
+        <span className={cn("text-xs", "text-muted-foreground")}>john.doe@example.com</span>
       </div>
     </div>
   );

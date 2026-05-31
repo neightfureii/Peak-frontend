@@ -12,7 +12,6 @@ import { Toaster } from "./components/refine-ui/notification/toaster";
 import { useNotificationProvider } from "./components/refine-ui/notification/use-notification-provider";
 import { ThemeProvider } from "./components/refine-ui/theme/theme-provider";
 import { dataProvider } from "./providers/data";
-import Dashboard from "./pages/dashboard";
 import { Building2, CalendarCheck, ClipboardList, Dumbbell, GraduationCap, Home, Users } from "lucide-react";
 import { Layout } from "./components/refine-ui/layout/layout";
 import SportsList from "./pages/sports/list";
@@ -30,6 +29,10 @@ import SportsShow from "./pages/sports/show";
 import UsersList from "./pages/users/list";
 import UsersCreate from "./pages/users/create";
 import UsersShow from "./pages/users/show";
+import DashboardList from "./pages/dashboard/list";
+import HomePage from "./pages/home";
+import Login from "./pages/auth/login";
+import SignUp from "./pages/auth/signup";
 
 function App() {
   return (
@@ -51,10 +54,15 @@ function App() {
                 },
               }}
               resources={[
+                // {
+                //   name: 'home',
+                //   list: '/',
+                //   meta: { label: 'Home', icon: <Home /> },
+                // },
                 {
                   name: 'dashboard',
-                  list: '/',
-                  meta: { label: 'Home', icon: <Home /> },
+                  list: '/dashboard',
+                  meta: { label: 'Dashboard', icon: <Home /> },
                 },
                 {
                   name: 'users',
@@ -97,12 +105,17 @@ function App() {
               ]}
             >
               <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<SignUp />} />
                 <Route element={
                   <Layout>
                     <Outlet />
                   </Layout>
                 } >
-                  <Route path="/" element={<Dashboard />} />
+                  <Route path="dashboard">
+                    <Route index element={<DashboardList />} />
+                  </Route>
                   <Route path="users">
                     <Route index element={<UsersList />} />
                     <Route path="create" element={<UsersCreate />} />

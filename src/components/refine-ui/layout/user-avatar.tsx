@@ -29,6 +29,14 @@ export function UserAvatar() {
   );
 }
 
+export function UserAvatarDummy() {
+  return (
+    <Avatar className={cn("h-10", "w-10")}>
+      <AvatarFallback>JD</AvatarFallback>
+    </Avatar>
+  );
+}
+
 const getInitials = (name = "") => {
   const names = name.split(" ");
   let initials = names[0].substring(0, 1).toUpperCase();
